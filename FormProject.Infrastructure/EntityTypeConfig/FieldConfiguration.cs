@@ -14,7 +14,7 @@ namespace FormProject.Infrastructure.EntityTypeConfig
 
             builder.Property(x => x.Required)
                 .HasColumnType("bit")
-                .IsRequired(false)
+                .IsRequired(true)
                 .HasColumnOrder(2);
 
             builder.Property(x => x.Name)
