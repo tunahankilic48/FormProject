@@ -2,7 +2,7 @@
 
 namespace FormProject.Domain.Entities
 {
-    internal class Field
+    public class Field
     {
         public int Id { get; set; }
         public bool Required { get; set; }

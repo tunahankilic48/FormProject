@@ -1,6 +1,6 @@
 ﻿namespace FormProject.Domain.Enum
 {
-    internal enum DataType
+    public enum DataType
     {
         STRING = 1,
         NUMBER,
