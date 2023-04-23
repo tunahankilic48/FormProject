@@ -2,7 +2,7 @@
 
 namespace FormProject.Domain.Repositories
 {
-    internal interface IAppUserRepository : IBaseRepository<AppUser>
+    public interface IAppUserRepository : IBaseRepository<AppUser>
     {
     }
 }

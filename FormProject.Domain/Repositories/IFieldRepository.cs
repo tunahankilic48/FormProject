@@ -2,7 +2,7 @@
 
 namespace FormProject.Domain.Repositories
 {
-    internal interface IFieldRepository : IBaseRepository<Field>
+    public interface IFieldRepository : IBaseRepository<Field>
     {
     }
 }

@@ -2,7 +2,7 @@
 
 namespace FormProject.Domain.Entities
 {
-    internal class AppUser : IdentityUser<int>
+    public class AppUser : IdentityUser<int>
     {
         //Navigation Property
         public List<Form> Forms { get; set; }
