@@ -36,6 +36,7 @@ namespace FormProject.Infrastructure.Repositories
 
         public async Task<bool> Delete(T entity)
         {
+            _table.Remove(entity);
             return await Save() > 0;
         }
 
