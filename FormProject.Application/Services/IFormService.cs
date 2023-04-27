@@ -1,13 +1,15 @@
 ﻿using FormProject.Application.Models.DTOs;
 using FormProject.Application.Models.ViewModels;
+using FormProject.Domain.Entities;
 
 namespace FormProject.Application.Services
 {
-    internal interface IFormService
+    public interface IFormService
     {
         Task<bool> Create(CreateFormDTO model);
-        Task<bool> Delete(int id);
-        Task<bool> Update(UpdateFormDTO model);
+        Task<CreateFormDTO> AssignFieldToForm(CreateFormDTO model, CreteFieldDTO field);
+        Task<List<FormVM>> GetForms(string name);
+    
         Task<UpdateFormDTO> GetById(int id);
         Task<List<FormVM>> GetForms();
         Task<FormDetailsVM> GetFormDetails(int id);

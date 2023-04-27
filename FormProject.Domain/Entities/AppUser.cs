@@ -5,6 +5,6 @@ namespace FormProject.Domain.Entities
     public class AppUser : IdentityUser<int>
     {
         //Navigation Property
-        public List<Form> Forms { get; set; }
+        public List<Form>? Forms { get; set; }
     }
 }

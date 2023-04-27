@@ -97,5 +97,10 @@ namespace FormProject.Application.Services
 
         }
 
+        public async Task<int> UserId(string name)
+        {
+            AppUser user = await _userManager.FindByNameAsync(name);
+            return user.Id;
+        }
     }
 }

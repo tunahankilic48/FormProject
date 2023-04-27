@@ -2,9 +2,10 @@
 
 namespace FormProject.Application.Services
 {
-    internal interface IFieldService
+    public interface IFieldService
     {
         Task<bool> Create(CreteFieldDTO model);
+        Task<CreteFieldDTO> CreateField();
         Task<bool> Delete(int id);
         Task<bool> Update(UpdateFieldDTO model);
         Task<UpdateFieldDTO> GetById(int id);

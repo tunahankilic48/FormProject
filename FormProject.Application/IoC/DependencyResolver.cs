@@ -7,7 +7,7 @@ using FormProject.Infrastructure.Repositories;
 
 namespace FormProject.Application.IoC
 {
-    internal class DependencyResolver : Module
+    public class DependencyResolver : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

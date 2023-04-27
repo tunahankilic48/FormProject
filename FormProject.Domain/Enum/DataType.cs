@@ -4,6 +4,5 @@
     {
         STRING = 1,
         NUMBER,
-        TEXTAREA,
     }
 }

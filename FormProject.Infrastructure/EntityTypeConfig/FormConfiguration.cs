@@ -30,7 +30,7 @@ namespace FormProject.Infrastructure.EntityTypeConfig
                 .HasColumnOrder(3);
 
             builder.Property(x => x.CreatedBy)
-                .IsRequired(true)
+                .IsRequired(false)
                 .HasColumnOrder(4);
 
             builder.Property(x => x.CreatedAt)
@@ -39,10 +39,11 @@ namespace FormProject.Infrastructure.EntityTypeConfig
                 .HasColumnOrder(5);
 
 
-            //Foreign Key
+            ////Foreign Key
             builder.HasOne(x => x.User)
                 .WithMany(x => x.Forms)
-                .HasForeignKey(x => x.CreatedBy);
+                .HasForeignKey(x => x.CreatedBy)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
 

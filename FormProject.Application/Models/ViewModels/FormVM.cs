@@ -1,9 +1,14 @@
-﻿namespace FormProject.Application.Models.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FormProject.Application.Models.ViewModels
 {
     public class FormVM
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int CreatedBy { get; set; }
+        [Display(Name = "Id")]
+        public int? Id { get; set; }
+        [Display(Name = "Form Name")]
+        public string? Name { get; set; }
+        [Display(Name = "Created By")]
+        public string? CreatedBy { get; set; }
     }
 }
