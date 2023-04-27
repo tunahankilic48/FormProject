@@ -7,6 +7,7 @@ namespace FormProject.Application.Services
     {
         Task<IdentityResult> Registor(RegistorDTO model);
         Task<SignInResult> Login(LoginDTO model);
+        Task<int> UserId(string name);
         Task Logout();
         Task UpdateUser(UpdateProfileDTO model);
         Task<UpdateProfileDTO> GetByUserName(string userName);

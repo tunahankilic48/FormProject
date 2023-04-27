@@ -92,18 +92,19 @@ namespace FormProject.Infrastructure.Migrations
 
             modelBuilder.Entity("FormProject.Domain.Entities.Field", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
                     b.Property<int>("DataType")
                         .HasColumnType("int")
                         .HasColumnOrder(4);
 
-                    b.Property<int>("FormId")
+                    b.Property<int?>("FormId")
+                        .IsRequired()
                         .HasColumnType("int")
                         .HasColumnOrder(5);
 
@@ -114,7 +115,8 @@ namespace FormProject.Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnOrder(3);
 
-                    b.Property<bool>("Required")
+                    b.Property<bool?>("Required")
+                        .IsRequired()
                         .HasColumnType("bit")
                         .HasColumnOrder(2);
 
@@ -127,18 +129,19 @@ namespace FormProject.Infrastructure.Migrations
 
             modelBuilder.Entity("FormProject.Domain.Entities.Form", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
+                        .IsRequired()
                         .HasColumnType("smalldatetime")
                         .HasColumnOrder(5);
 
-                    b.Property<int>("CreatedBy")
+                    b.Property<int?>("CreatedBy")
                         .HasColumnType("int")
                         .HasColumnOrder(4);
 
@@ -299,7 +302,7 @@ namespace FormProject.Infrastructure.Migrations
                     b.HasOne("FormProject.Domain.Entities.Form", "Form")
                         .WithMany("Fields")
                         .HasForeignKey("FormId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Form");
@@ -310,8 +313,7 @@ namespace FormProject.Infrastructure.Migrations
                     b.HasOne("FormProject.Domain.Entities.AppUser", "User")
                         .WithMany("Forms")
                         .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("User");
                 });

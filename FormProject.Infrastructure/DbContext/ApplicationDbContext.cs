@@ -20,7 +20,10 @@ namespace FormProject.Infrastructure.DbContext
             modelBuilder.ApplyConfiguration(new FormConfiguration())
                         .ApplyConfiguration(new FieldConfiguration());
 
-
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
             base.OnModelCreating(modelBuilder);
         }
 

@@ -1,0 +1,20 @@
+﻿@model FormDetailsVM
+
+<form>
+    <fieldset>
+        <legend>@Model.Name</legend>
+        <div class="form-group row">
+            <label class="col-form-label">@Model.Description</label>
+        </div>
+        @foreach (var item in Model.Fields)
+        {
+            <div class="form-group">
+               
+                <label>@item.Name</label>
+                    <input type=@(item.DataType == FormProject.Domain.Enum.DataType.NUMBER ? "number" : "text") class="form-control" @(item.Required == true ? "required" : "")>
+
+            </div>
+        } 
+        <a class="btn btn-info m-2" asp-controller="form" asp-action="index">Back To The List</a>
+    </fieldset>
+</form>
