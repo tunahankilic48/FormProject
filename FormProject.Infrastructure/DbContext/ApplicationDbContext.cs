@@ -13,17 +13,18 @@ namespace FormProject.Infrastructure.DbContext
         }
 
         public DbSet<Form> Forms { get; set; }
-        public DbSet<Field> Fields { get; set; }
+        public DbSet<Field> Fields { get; set; } // Veritabanında tabloların oluşmasını sağlar
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new FormConfiguration())
-                        .ApplyConfiguration(new FieldConfiguration());
+                        .ApplyConfiguration(new FieldConfiguration()); // Veri tabanındaki tabloların hangi kurallara göre oluşturulacağının belirler
 
             foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
-            }
+            } // Veritabanında bulunan Foreign Keylerin davranışını belirler
+
             base.OnModelCreating(modelBuilder);
         }
 

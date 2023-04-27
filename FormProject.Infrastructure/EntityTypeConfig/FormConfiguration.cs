@@ -1,11 +1,6 @@
 ﻿using FormProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FormProject.Infrastructure.EntityTypeConfig
 {
@@ -42,8 +37,7 @@ namespace FormProject.Infrastructure.EntityTypeConfig
             ////Foreign Key
             builder.HasOne(x => x.User)
                 .WithMany(x => x.Forms)
-                .HasForeignKey(x => x.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(x => x.CreatedBy);
 
 
 
