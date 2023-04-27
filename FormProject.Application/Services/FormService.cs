@@ -3,7 +3,6 @@ using FormProject.Application.Models.DTOs;
 using FormProject.Application.Models.ViewModels;
 using FormProject.Domain.Entities;
 using FormProject.Domain.Repositories;
-using FormProject.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace FormProject.Application.Services
@@ -33,12 +32,6 @@ namespace FormProject.Application.Services
             Field newField = _mapper.Map<Field>(field);
             model.Fields.Add(newField);
             return model;
-        }
-
-        public async Task<UpdateFormDTO> GetById(int id)
-        {
-            Form form = await _formRepository.GetDefault(x => x.Id == id);
-            return _mapper.Map<UpdateFormDTO>(form);
         }
 
         public async Task<List<FormVM>> GetForms()

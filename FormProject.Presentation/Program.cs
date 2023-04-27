@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); // Program çalýþýrken düzenleme yapýlabilmesi için razor runtime compilation paketi yüklendi ve burada sisteme dahil edildi.
 
 builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // Connection string will be taken from appsettings.json file
 
@@ -25,7 +25,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole<int>>(options =>
     options.Password.RequireLowercase = false;
     options.Password.RequiredLength = 3;
     options.Password.RequireNonAlphanumeric = false;
-}).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+}).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); // Identity user kullanýldýðý için user konfigürasyon iþlemleri burada yapýldý. Giriþin kolay olmasý için kýsýtlamalar en aza indirildi.
 
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
@@ -33,7 +33,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {
     builder.RegisterModule(new DependencyResolver());
-});
+}); // Dependency injection için kullanýlan container burada implimente edildi.
 
 
 
@@ -52,7 +52,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
+app.UseAuthentication(); // Giriþ yapýldýðý zaman sayfalara ulaþýlabilmesi için gerekli element eklendi.
 
 app.UseAuthorization();
 

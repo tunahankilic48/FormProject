@@ -8,28 +8,37 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FormProject.Presentation.styles.css" asp-append-version="true" />
 </head>
-<body >
+<body>
     <header class="wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" asp-action="index" asp-controller="form" >Form Project</a>
+                <a class="navbar-brand" asp-action="index" asp-controller="form">Form Project</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarColor03">
+                <div class="collapse navbar-collapse " id="navbarColor03">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a asp-controller="form" asp-action="index" class="nav-link active" >
+                            <a asp-controller="form" asp-action="index" class="nav-link active">
                                 Forms
                                 <span class="visually-hidden">(current)</span>
                             </a>
                         </li>
-   
+
                     </ul>
-                    <form class="d-flex" asp-action="GetFormByName" asp-controller="form">
-                        <input class="form-control me-sm-2" type="text" name="searchString" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    <div class="collapse navbar-collapse" id="navbarColor03">
+                        <form class="d-flex offset-3" asp-action="GetFormByName" asp-controller="form">
+                            <input class="form-control me-sm-2" type="text" name="searchString" placeholder="Search" style="width:400px">
+                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-info mx-4 px-4" asp-action="logout" asp-controller="account">Logout</a>
+                        }
+                    </div>
+
                 </div>
             </div>
         </nav>

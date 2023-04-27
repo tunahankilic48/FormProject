@@ -11,6 +11,7 @@ namespace FormProject.Application.IoC
     {
         protected override void Load(ContainerBuilder builder)
         {
+            // Dependency Injection için gerekli olan düzenlemeler Dependency container içerisinde yapıldı
 
             builder.RegisterType<Mapper>().As<IMapper>().InstancePerLifetimeScope();
             builder.RegisterType<AppUserService>().As<IAppUserService>().InstancePerLifetimeScope();

@@ -20,34 +20,30 @@ namespace FormProject.Application.Services
             _userManager = userManager;
             _mapper = mapper;
         }
-
-        public async Task<UpdateProfileDTO> GetByUserName(string userName)
-        {
-            UpdateProfileDTO result = await _repository.GetFilteredFirstOrDefault(
-                select: x => new UpdateProfileDTO()
-                {
-                    Id = x.Id,
-                    UserName = x.UserName,
-                    Password = x.PasswordHash,
-                    Email = x.Email
-                },
-                where: x => x.UserName == userName
-                );
-
-            return result;
-        }
-
+       
+        /// <summary>
+        /// Kullanıcının giriş bilgilerini kontrol ederek giriş yapabilmesini sağlar.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<SignInResult> Login(LoginDTO model)
         {
             SignInResult result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
             return result;
         }
-
+        /// <summary>
+        /// Kullanıcının sistemden çıkış yapmasını sağlar
+        /// </summary>
+        /// <returns></returns>
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
         }
-
+        /// <summary>
+        /// Kullanıcının sisteme kayıt olabilmesini sağlar
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<IdentityResult> Registor(RegistorDTO model)
         {
             AppUser user = _mapper.Map<AppUser>(model);
@@ -61,42 +57,11 @@ namespace FormProject.Application.Services
 
             return result;
         }
-
-        public async Task UpdateUser(UpdateProfileDTO model)
-        {
-            AppUser user = await _repository.GetDefault(x => x.Id == model.Id);
-
-
-            if (model.Password != null)
-            {
-                if (model.Password == model.ConfirmPassword)
-                {
-                    user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, model.Password);
-                    await _userManager.UpdateAsync(user);
-                }
-            }
-
-            if (model.Email != null)
-            {
-                AppUser isEmailExist = await _repository.GetDefault(x => x.Email == model.Email);
-
-                if (isEmailExist == null)
-                {
-                    await _userManager.SetEmailAsync(user, model.Email);
-                }
-            }
-
-            if (model.UserName != null)
-            {
-                var isUserNameExist = await _userManager.FindByNameAsync(model.UserName);
-                if (isUserNameExist == null)
-                {
-                    await _userManager.SetUserNameAsync(user, model.UserName);
-                }
-            }
-
-        }
-
+        /// <summary>
+        /// Giriş yapmış kullanıcının name propertysini kullanarak Id bulanmasını sağlar
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public async Task<int> UserId(string name)
         {
             AppUser user = await _userManager.FindByNameAsync(name);
