@@ -8,15 +8,13 @@ namespace FormProject.Application.Mapping
     {
         public MappingProfile()
         {
-            //ToDo: Mapping kısmı eklenecek
 
             CreateMap<AppUser, RegistorDTO>().ReverseMap();
             
             CreateMap<Field, CreteFieldDTO>().ReverseMap();
-            CreateMap<Field, UpdateFieldDTO>().ReverseMap();
             
             CreateMap<Form, CreateFormDTO>().ReverseMap();
-            CreateMap<Form, UpdateFormDTO>().ReverseMap();
+
 
 
         }
