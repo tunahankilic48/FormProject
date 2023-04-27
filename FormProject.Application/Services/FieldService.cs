@@ -16,14 +16,21 @@ namespace FormProject.Application.Services
             _fieldRepository = fieldRepository;
             _mapper = mapper;
         }
-
+        /// <summary>
+        /// Form için gerekli alanın oluşturulması sağlanır
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<bool> Create(CreteFieldDTO model)
         {
             Field newForm = _mapper.Map<Field>(model);
             return await _fieldRepository.Add(newForm);
         }
 
-
+        /// <summary>
+        /// Form için alan oluşturulurken gerekli verinin view'a taşınması sağlanır
+        /// </summary>
+        /// <returns></returns>
 
         public async Task<CreteFieldDTO> CreateField()
         {
@@ -35,22 +42,5 @@ namespace FormProject.Application.Services
             return creteFieldDTO;
         }
 
-        public async Task<bool> Delete(int id)
-        {
-            Field deleteForm = await _fieldRepository.GetDefault(x => x.Id == id);
-            return await _fieldRepository.Delete(deleteForm);
-        }
-
-        public async Task<UpdateFieldDTO> GetById(int id)
-        {
-            Field form = await _fieldRepository.GetDefault(x => x.Id == id);
-            return _mapper.Map<UpdateFieldDTO>(form);
-        }
-
-        public async Task<bool> Update(UpdateFieldDTO model)
-        {
-            Field form = _mapper.Map<Field>(model);
-            return await _fieldRepository.Update(form);
-        }
     }
 }

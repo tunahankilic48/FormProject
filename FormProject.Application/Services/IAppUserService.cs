@@ -9,8 +9,6 @@ namespace FormProject.Application.Services
         Task<SignInResult> Login(LoginDTO model);
         Task<int> UserId(string name);
         Task Logout();
-        Task UpdateUser(UpdateProfileDTO model);
-        Task<UpdateProfileDTO> GetByUserName(string userName);
 
     }
 }

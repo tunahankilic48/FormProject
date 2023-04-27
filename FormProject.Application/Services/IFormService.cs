@@ -9,8 +9,6 @@ namespace FormProject.Application.Services
         Task<bool> Create(CreateFormDTO model);
         Task<CreateFormDTO> AssignFieldToForm(CreateFormDTO model, CreteFieldDTO field);
         Task<List<FormVM>> GetForms(string name);
-    
-        Task<UpdateFormDTO> GetById(int id);
         Task<List<FormVM>> GetForms();
         Task<FormDetailsVM> GetFormDetails(int id);
     }
