@@ -1,8 +1,8 @@
-﻿@model IEnumerable<FormVM>
+﻿@model CreateFormDTO
 
 <div class="row">
     <div class="col-lg-2 "></div>
-    <a class="btn btn-primary m-2 col-lg-2" asp-controller="Form" asp-action="Create">Create New Form</a>
+    <a class="btn btn-primary m-2 col-lg-2" data-bs-toggle="modal" data-bs-target="#createFormModal">Create New Form</a>
 </div>
 <div class="row d-flex justify-content-center">
 
@@ -10,15 +10,15 @@
         <table class="table table-hover table-striped">
             <thead>
                 <tr class="table-primary text-center">
-                    <th scope="col">@Html.DisplayNameFor(x=>x.Id)</th>
-                    <th scope="col">@Html.DisplayNameFor(x=>x.Name)</th>
-                    <th scope="col">@Html.DisplayNameFor(x=>x.CreatedBy)</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Form Name</th>
+                    <th scope="col">Created By</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in ViewBag.Forms)
                 {
 
                     <tr class="table-primary text-center align-middle">
@@ -36,3 +36,105 @@
         </table>
     </div>
 </div>
+
+
+<div class="modal fade" id="createFormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="create" asp-controller="form">
+                    <div class="row d-flex justify-content-center mt-3">
+
+                        <div class="col-lg-10">
+                            <table class="table table-hover table-striped">
+                                <tbody id="formTable">
+
+                                    <tr class="table-primary text-center align-middle">
+                                        <td class="col-lg-2">@Html.DisplayNameFor(x=>x.Name)</td>
+                                        <td>
+                                            <input class="col-lg-10" asp-for="Name" type="text" placeholder="Form Name">
+                                            <span asp-validation-for="Name" class="text-danger d-inline-block"></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-primary text-center align-middle">
+                                        <td class="col-lg-2">@Html.DisplayNameFor(x=>x.Description)</td>
+                                        <td>
+                                            <textarea class="col-lg-10" asp-for="Description" type="text" placeholder="Form Description"></textarea>
+                                            <span asp-validation-for="Description" class="text-danger d-inline-block"></span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <div class=" d-flex justify-content-end">
+
+                    <label class="me-2">Field</label>
+                    <button type="button" class="btn btn-info me-2" id="addField">Add Field</button>
+                    <button type="button" class="btn btn-danger" id="removeField">Remove Field</button>
+                    <div class="col-lg-1">
+                    </div>
+                </div>
+                    <div class="form-group d-flex justify-content-end mt-3">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <div class="col-lg-1"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+            $("#addField").click(function () {
+
+                $("#formTable").append(`
+
+        <tr class="table-primary text-center align-middle">
+
+            <td class="col-lg-2">
+                    <label>Is Required: </label>
+                    <select name="isRequired" data-bind="value : state">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+
+            </td>
+
+            <td>
+                <table class="col-lg-10">
+
+                    <td class="col-lg-6">
+                            <label>Name: </label>
+                        <input name="forWhat" type='text' placeholder="For What"/>
+                    </td>
+
+                    <td class="col-lg-6">
+                        <label>Data Type: </label>
+
+        @Html.DropDownList("dataType",ViewBag.DataTypes as SelectList)
+
+
+                   </td>
+
+                </table>
+            </td>
+
+        </tr>
+                                   `)
+            })
+
+        $("#removeField").click(() => {
+            $("#formTable").children().last().remove();
+        })
+    
+    </script>
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

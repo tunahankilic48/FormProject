@@ -44,14 +44,8 @@
 </div>
 
 
-<div class="form-group">
-    <ul id="bookList">
-    </ul>
-</div>
-
 @section Scripts {
     <script>
-        var dataTypes = @Html.Raw(Json.Serialize(ViewBag.DataTypes))
         $("#addField").click(function () {
 
             $("#formTable").append(`
@@ -71,16 +65,13 @@
         <table class="col-lg-10">
 
             <td class="col-lg-6">
-                    <label>Name: </label>
+                <label>Name: </label>
                 <input name="forWhat" type='text' placeholder="For What"/>
             </td>   
 
             <td class="col-lg-6">
                 <label>Data Type: </label>
-
-        @Html.DropDownList("dataType",ViewBag.DataTypes as SelectList)
-
-
+                @Html.DropDownList("dataType",ViewBag.DataTypes as SelectList)
            </td>
 
         </table>

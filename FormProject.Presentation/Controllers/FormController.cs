@@ -22,13 +22,18 @@ namespace FormProject.Presentation.Controllers
 
         public async Task<IActionResult> Index()
         {
-            if(TempData["searchString"] != null)
-            {
-                string searchString = ((string[])(TempData["searchString"]))[0];
-                return View(await _formService.GetForms(searchString));
-            }
+            var field = await _fieldService.CreateField();
+            ViewBag.DataTypes = new SelectList(field.DataTypes);
 
-            return View(await _formService.GetForms());
+            if (TempData["searchString"] != null)
+            {
+
+                string searchString = ((string[])(TempData["searchString"]))[0];
+                ViewBag.Forms = await _formService.GetForms(searchString);
+                return View();
+            }
+            ViewBag.Forms = await _formService.GetForms();
+            return View();
         }
 
         public async Task<IActionResult> Create()
@@ -41,6 +46,7 @@ namespace FormProject.Presentation.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateFormDTO model, IFormCollection collection)
         {
+            
                 var field = await _fieldService.CreateField();
             if (ModelState.IsValid)
             {
